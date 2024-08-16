@@ -2,7 +2,8 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 const clickers = sqliteTable('clickers', {
   id: integer('id', { mode: 'number' })
-    .primaryKey({ autoIncrement: true }),
+    .primaryKey({ autoIncrement: true })
+    .notNull(),
   user_id: integer('user_id')
     .references(() => users.id)
     .notNull(),
@@ -11,24 +12,27 @@ const clickers = sqliteTable('clickers', {
     .notNull(),
   count: integer('count')
     .default(0),
-  comment: text('comment')
 });
 
 const items = sqliteTable('items', {
   id: integer('id', { mode: 'number' })
-    .primaryKey({ autoIncrement: true }),
+    .primaryKey({ autoIncrement: true })
+    .notNull(),
   name: text('name')
     .notNull(),
   price: integer('price'), // optional if tracking cost of physical item
+  comment: text('comment'),
   // add picture later: 
 });
 
 const users = sqliteTable('users', {
   id: integer('id', { mode: 'number' })
-    .primaryKey({ autoIncrement: true }),
+    .primaryKey({ autoIncrement: true })
+    .notNull(),
   name: text('name')
     .notNull(),
   password: text('password')
+    .notNull()
 });
 
 type InsertClickerParams = typeof clickers.$inferInsert;

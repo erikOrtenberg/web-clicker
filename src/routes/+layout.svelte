@@ -1,8 +1,11 @@
 <script>
   import "../app.css";
   import logo from "$lib/assets/logo.png"
-  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Dropdown, DropdownItem, } from 'flowbite-svelte';
+  import { ChevronDownOutline } from 'flowbite-svelte-icons';
   const slideParams = { delay: 0, duration: 500};
+  import { page } from '$app/stores';
+  $: activeUrl = $page.url.pathname;
 </script>
 
 <Navbar class="bg-orange-500">
@@ -11,14 +14,24 @@
     <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Web Clicker</span>
   </NavBrand>
   <NavHamburger  />
-  <NavUl slideParams={slideParams}>
+  <NavUl {activeUrl} slideParams={slideParams}>
     <NavLi href="/">Home</NavLi>
     <NavLi href="/clickers">Clickers</NavLi>
+    <NavLi class="cursor-pointer">
+      Admin<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
+    </NavLi>
+    <Dropdown class="w-44 z-20">
+      <DropdownItem href="/admin/clickers">Clickers</DropdownItem>
+      <DropdownItem href="/admin/items">Items</DropdownItem>
+      <DropdownItem href="/admin/users">Users</DropdownItem>
+    </Dropdown>
     <NavLi href="/login">Login</NavLi>
   </NavUl>
 </Navbar>
 
 <slot />
+
+<div class="w-full p-12"/>
 
 <div class="flex flex-row h-20 w-full fixed bottom-0 bg-orange-500 justify-center justify-around content-center items-center">
   <div class="rounded px-3 py-2 bg-gray-600">
