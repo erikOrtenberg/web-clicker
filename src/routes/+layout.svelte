@@ -20,14 +20,18 @@
   <NavUl {activeUrl} slideParams={slideParams}>
     <NavLi href="/">Home</NavLi>
     <NavLi href="/clickers">Clickers</NavLi>
-    <NavLi class="cursor-pointer">
-      Admin<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
-    </NavLi>
-    <Dropdown class="w-44 z-20">
-      <DropdownItem href="/admin/clickers">Clickers</DropdownItem>
-      <DropdownItem href="/admin/items">Items</DropdownItem>
-      <DropdownItem href="/admin/users">Users</DropdownItem>
-    </Dropdown>
+    {#if data.user}
+      {#if data.user.id === 1}
+        <NavLi class="cursor-pointer">
+          Admin<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
+        </NavLi>
+        <Dropdown class="w-44 z-20">
+          <DropdownItem href="/admin/clickers">Clickers</DropdownItem>
+          <DropdownItem href="/admin/items">Items</DropdownItem>
+          <DropdownItem href="/admin/users">Users</DropdownItem>
+        </Dropdown>
+      {/if}
+    {/if}
     {#if !data.user}
       <NavLi href="/login">Login</NavLi>
     {:else}
