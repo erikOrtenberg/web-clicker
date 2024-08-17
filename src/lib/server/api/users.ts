@@ -1,6 +1,7 @@
 import { db } from '../db/client'
 import { users, type InsertUserParams } from '../db/schema' 
 import { eq, lt, gte, ne } from 'drizzle-orm';
+import bcrypt from 'bcryptjs';
 
 export async function getUsers () {
   const result = await db
@@ -14,11 +15,26 @@ export async function getUserByName ( name: string ) {
     .select()
     .from(users)
     .where(eq(users.name, name));
-  console.log(result);
-  return result;
+  if(result.length > 0){
+    return result[0];
+  }
+  return undefined
 } 
 
-export async function createUser ( user: InsertUserParams ) {
+export async function getUserById ( id: number ) {
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, id));
+  if(result.length > 0){
+    return result[0];
+  }
+  return undefined
+} 
+
+export async function createUser ( username: string, password: string ) {
+  const user = { name: username, password: await bcrypt.hash(password, 10)}
+  console.log(user)
   const result = await db
     .insert(users)
     .values(user)
@@ -26,15 +42,12 @@ export async function createUser ( user: InsertUserParams ) {
   return result;
 } 
 
-export async function updateUser ( user: InsertUserParams ) {
-  if(!user.id) {
-    return -1;
-  }
-  const userId = Number(user.id) 
+export async function updateUser (id: number, username: string, password: string ) {
+  const user = {id: id, name: username, password: await bcrypt.hash(password, 10)}
   const result = await db
     .update(users)
     .set(user)
-    .where(eq(users.id, userId));
+    .where(eq(users.id, id));
   return result;
 
 }

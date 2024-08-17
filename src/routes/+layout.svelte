@@ -1,11 +1,14 @@
-<script>
+<script lang="ts">
   import "../app.css";
   import logo from "$lib/assets/logo.png"
-  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Dropdown, DropdownItem, } from 'flowbite-svelte';
+  import { Button, Navbar, NavBrand, NavLi, NavUl, NavHamburger, Dropdown, DropdownItem, } from 'flowbite-svelte';
   import { ChevronDownOutline } from 'flowbite-svelte-icons';
   const slideParams = { delay: 0, duration: 500};
   import { page } from '$app/stores';
   $: activeUrl = $page.url.pathname;
+
+	import type { PageData } from './$types';
+	export let data: PageData;
 </script>
 
 <Navbar class="bg-orange-500">
@@ -25,7 +28,16 @@
       <DropdownItem href="/admin/items">Items</DropdownItem>
       <DropdownItem href="/admin/users">Users</DropdownItem>
     </Dropdown>
-    <NavLi href="/login">Login</NavLi>
+    {#if !data.user}
+      <NavLi href="/login">Login</NavLi>
+    {:else}
+      <NavLi>Logged in as {data.user.name}</NavLi>
+      <NavLi>	
+        <form method="POST" action="/?/logout">
+          <Button outline color="blue" type="submit" name="logout" value="true" size="xs" on:click> Log out</Button>
+	      </form>
+      </NavLi>
+    {/if}
   </NavUl>
 </Navbar>
 

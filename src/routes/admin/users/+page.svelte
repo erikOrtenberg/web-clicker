@@ -29,5 +29,5 @@
       {/each}
     </TableBody>
   </Table>
-  <Button outline color="green" href=/admin/user/add>Go To User Form</Button>
+  <Button outline color="green" href=/admin/users/add>Go To User Creation Form</Button>
 </div>
