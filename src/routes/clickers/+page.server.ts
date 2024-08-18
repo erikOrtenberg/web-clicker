@@ -17,6 +17,9 @@ export const load: PageServerLoad = async (event) => {
 
 export const actions = {
 	inc: async (event) => {
+    if(!event.locals.user){
+      error(401, "You must be logged in to use this resource")
+    }
     const data = await event.request.formData()
 
     const clickerId = Number(data.get("clickerId"))
@@ -24,6 +27,9 @@ export const actions = {
     incClickerById(clickerId)
 	},
 	dec: async (event) => {
+    if(!event.locals.user){
+      error(401, "You must be logged in to use this resource")
+    }
     const data = await event.request.formData()
 
     const clickerId = Number(data.get("clickerId"))

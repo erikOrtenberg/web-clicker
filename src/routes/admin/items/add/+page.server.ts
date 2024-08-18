@@ -3,7 +3,10 @@ import type { Actions } from './$types';
 import { createItem } from '$lib/server/api/items'
 
 export const actions = {
-	default: async ({request}) => {
+	default: async ({request, locals}) => {
+    if(!locals.user){
+      error(401, "You must be logged in to use this resource")
+    }
     const data = await request.formData();
     console.log(data)
     const name = data.get("name");

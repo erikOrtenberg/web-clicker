@@ -24,7 +24,10 @@ export const load: PageServerLoad = async ({ params }) => {
 
 
 export const actions = {
-	default: async ({request, params}) => {
+	default: async ({request, params, locals}) => {
+    if(!locals.user){
+      error(401, "You must be logged in to use this resource")
+    }
     const itemId = parseInt(params.slug);
     if(isNaN(itemId)) {
       error(400, {
