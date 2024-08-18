@@ -19,8 +19,8 @@
   <NavHamburger  />
   <NavUl {activeUrl} slideParams={slideParams}>
     <NavLi href="/">Home</NavLi>
-    <NavLi href="/clickers">Clickers</NavLi>
     {#if data.user}
+      <NavLi href="/clickers">Clickers</NavLi>
       {#if data.user.id === 1}
         <NavLi class="cursor-pointer">
           Admin<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
