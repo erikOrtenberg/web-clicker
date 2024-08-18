@@ -1,4 +1,4 @@
-import {getClickersByUser, incClickerById} from '../../lib/server/api/clickers'
+import {decClickerById, getClickersByUser, incClickerById} from '../../lib/server/api/clickers'
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { error, redirect } from '@sveltejs/kit';
@@ -16,11 +16,18 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions = {
-	default: async (event) => {
+	inc: async (event) => {
     const data = await event.request.formData()
 
     const clickerId = Number(data.get("clickerId"))
 
     incClickerById(clickerId)
+	},
+	dec: async (event) => {
+    const data = await event.request.formData()
+
+    const clickerId = Number(data.get("clickerId"))
+
+    decClickerById(clickerId)
 	},
 } satisfies Actions;
