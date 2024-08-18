@@ -7,14 +7,43 @@ export async function getItemByName ( name: string ) {
     .select()
     .from(items)
     .where(eq(items.name, name));
-  return result;
+  if(result.length > 0){
+    return result[0];
+  }
+  return undefined;
 } 
 
-export async function createItem ( name: string, price: number | undefined ) {
-  const item = {"name": name, "price": price}
+export async function getItemById(id: number) {
+  const result = await db
+    .select()
+    .from(items)
+    .where(eq(items.id, id));
+  if(result.length > 0){
+    return result[0];
+  }
+  return undefined;
+}
+
+export async function getItems() {
+  const result = await db
+    .select()
+    .from(items)
+  return result
+}
+
+export async function createItem ( name: string, price: number | undefined, comment: string | undefined) {
+  const item = {"name": name, "price": price, "comment": comment}
   const result = await db
     .insert(items)
     .values(item)
-  console.log(result);
+  return result;
+} 
+
+export async function updateItem ( id: number, name: string, price: number | undefined, comment: string | undefined) {
+  const item = {"id": id, "name": name, "price": price, "comment": comment}
+  const result = await db
+    .update(items)
+    .set(item)
+    .where(eq(items.id, id))
   return result;
 } 
