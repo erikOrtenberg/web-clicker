@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { loginUser } from '$lib/server/api/login'
 
@@ -9,19 +9,13 @@ export const actions = {
     const password = data.get("password");
 
     if (!name || !password) {
-      fail(401, {
-        message: "Invalid login credentials. "
-      });
+      error(401, "Invalid login credentials. ");
     }
-    const {error, token} = await loginUser(String(name), String(password));
+    const {loginError, token} = await loginUser(String(name), String(password));
 
-    if (!token) {
-      fail(401, {
-        message: "Invalid login credentials. "
-      });
+    if (!token || typeof loginError === "string") {
+      error(401, "Invalid login credentials. ");
     }
-    console.log("error: ", error)
-    console.log("token: ", token)
     
     cookies.set('AuthorizationToken', `Bearer ${token}`, {
       httpOnly: true,

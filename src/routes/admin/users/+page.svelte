@@ -3,8 +3,8 @@
 	export let data: PageData;
     import { Button, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Checkbox, TableSearch } from 'flowbite-svelte';
 </script>
-<div class="flex justify-center items-center">
-  <Table striped={true}>
+<div class="flex flex-row justify-center items-center">
+  <Table striped={true} >
     <TableHead>
       <TableHeadCell>Name</TableHeadCell>
       <TableHeadCell>Role</TableHeadCell>
@@ -23,11 +23,12 @@
             {/if}
           </TableBodyCell>
           <TableBodyCell>
-            <a href="/lol" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Edit</a>
+            <a href={"/admin/users/update/" + user.id} class="font-medium text-primary-600 hover:underline dark:text-primary-500">Edit</a>
           </TableBodyCell>
         </TableBodyRow>
       {/each}
     </TableBody>
   </Table>
+  <div class="p-4"/>
   <Button outline color="green" href=/admin/users/add>Go To User Creation Form</Button>
 </div>

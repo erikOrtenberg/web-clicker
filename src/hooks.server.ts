@@ -23,8 +23,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 				throw new Error('User not found');
 			}
 
-      console.log("IN HOOK", user)
-
 			const sessionUser = {
 				id: user.id,
 				name: user.name
@@ -32,6 +30,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 			event.locals.user = sessionUser;
 		} catch (error) {
+      event.locals.user = undefined;
 			console.error(error);
 		}
 	}

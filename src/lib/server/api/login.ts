@@ -12,12 +12,12 @@ export async function loginUser (username: string, password: string) {
     .where(eq(users.name, username))
   // Validate
   if(result.length != 1){
-    return {error: "non unique user found"};
+    return {loginError: "non unique user found"};
   }
   const user = result[0];
   const isValid = await bcrypt.compare(password, user.password);
   if(!isValid) {
-    return {error: "invalid credentails"};
+    return {loginError: "invalid credentails"};
   }
   
   // Create JWT 
