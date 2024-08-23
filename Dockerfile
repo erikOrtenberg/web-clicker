@@ -14,6 +14,10 @@ RUN npm prune --omit=dev
 FROM deps as build
 WORKDIR /app
 COPY . .
+RUN mkdir db
+RUN npm run generate-migrations:db
+RUN npm run push:db
+RUN npm run init:db
 RUN npm run build
 
 FROM base
@@ -21,7 +25,7 @@ FROM base
 WORKDIR /app
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
-COPY --from=build /app/data.sqlite ./data.sqlite
+COPY --from=build /app/db/data.sqlite ./db/data.sqlite
 COPY package.json ./
 COPY --chmod=777 init-db.sh ./
 COPY ./src ./src
