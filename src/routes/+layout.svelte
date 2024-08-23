@@ -51,7 +51,7 @@
 
 <div class="flex flex-row h-20 w-full fixed bottom-0 bg-primary-600 justify-center justify-around content-center items-center">
   <div class="rounded px-3 py-2 bg-gray-600">
-    <a class="text-white">Made with ❤️ </a>
+    <p class="text-white">Made with ❤️ </p>
     <a href="https://www.github.com" class="text-white"> Github Link</a>
   </div>
 </div>

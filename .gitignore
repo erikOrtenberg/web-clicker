@@ -1,6 +1,8 @@
 # drizzle + sqlite db 
 src/lib/server/db/migrations
 src/lib/server/db/data.sqlite
+db
+
 
 # SDCC stuff
 *.lnk
