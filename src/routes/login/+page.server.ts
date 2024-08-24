@@ -1,6 +1,14 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { loginUser } from "$lib/server/api/login";
+
+export const load: PageServerLoad = async (event) => {
+  const user = event.locals.user;
+  if (user) {
+    redirect(303, "/clickers")
+  }
+};
+
 
 export const actions = {
   default: async ({ cookies, request }) => {

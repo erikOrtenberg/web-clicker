@@ -10,6 +10,9 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 </script>
+<head>
+  <title>Web Clicker</title>
+</head>
 
 <Navbar class="bg-primary-600">
   <NavBrand href="/">
