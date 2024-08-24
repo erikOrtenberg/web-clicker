@@ -13,7 +13,7 @@
 <head>
   <title>Web Clicker</title>
 </head>
-<div class="flex flex-col items-center bg-gradient-to-bl from-orange-600 to-fuchsia-600 min-h-screen h-max">
+<div class="flex flex-col items-center bg-gradient-to-bl from-orange-600 to-fuchsia-600 h-max" style="min-height: 92vh">
 
   <Navbar class="bg-primary-600">
     <NavBrand href="/">
@@ -54,12 +54,10 @@
     <slot />
   </div>
   
-  <div class="h-20"/>
-
-  <div class="flex flex-row h-20 w-full fixed bottom-0 bg-primary-600 justify-center justify-around content-center items-center">
-    <div class="rounded px-3 py-2 bg-gray-600">
-      <p class="text-white">Made with ❤️ </p>
-      <a href="https://www.github.com" class="text-white"> Github Link</a>
-    </div>
+</div>
+<div class="flex flex-row h-20 w-full bg-primary-600 justify-center justify-around content-center items-center">
+  <div class="rounded px-3 py-2 bg-gray-600">
+    <p class="text-white">Made with ❤️ </p>
+    <a href="https://www.github.com" class="text-white"> Github Link</a>
   </div>
 </div>
