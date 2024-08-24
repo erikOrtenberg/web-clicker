@@ -3,7 +3,7 @@
 	export let data: PageData;
     import { Button, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Checkbox, TableSearch } from 'flowbite-svelte';
 </script>
-<div class="flex flex-row justify-center items-center">
+<div class="bg-white rounded-xl p-2 overflow-auto">
   <Table striped={true} >
     <TableHead>
       <TableHeadCell>For User</TableHeadCell>
@@ -26,8 +26,8 @@
       {/each}
     </TableBody>
   </Table>
-  <div class="p-4"/>
-  <form method="POST">
-    <Button outline color="green" type="submit">Generate all missing Clickers</Button>
-  </form>
 </div>
+<div class="p-4"/>
+<form method="POST">
+  <Button outline color="green" class="bg-white" type="submit">Generate all missing Clickers</Button>
+</form>

@@ -39,16 +39,16 @@ export const actions = {
     const name = data.get("name");
     const password = data.get("password");
 
-    if (!name || !password) {
+    if (!name) {
       error(404, {
-        message: "Please provide a complete user. " + request.json(),
+        message: "Please provide a complete user. ",
       });
     }
     const result = await updateUser(userId, String(name), String(password));
 
     if (!result) {
       error(404, {
-        message: "Couldn't create user with params. " + request.json(),
+        message: "Couldn't create user with params. ",
       });
     }
     redirect(303, "/admin/users");

@@ -8,7 +8,6 @@ export const actions = {
       error(401, "You must be logged in to use this resource");
     }
     const data = await request.formData();
-    console.log(data);
     const name = data.get("name");
     const price = data.get("price");
     const comment = data.get("comment");

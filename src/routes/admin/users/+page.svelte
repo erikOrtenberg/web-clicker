@@ -3,7 +3,7 @@
 	export let data: PageData;
     import { Button, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Checkbox, TableSearch } from 'flowbite-svelte';
 </script>
-<div class="flex flex-row justify-center items-center">
+<div class="bg-white rounded-xl p-2">
   <Table striped={true} >
     <TableHead>
       <TableHeadCell>Name</TableHeadCell>
@@ -29,6 +29,6 @@
       {/each}
     </TableBody>
   </Table>
-  <div class="p-4"/>
-  <Button outline color="green" href=/admin/users/add>Go To User Creation Form</Button>
 </div>
+<div class="p-4"/>
+<Button color="green" outline class="bg-white" href="/admin/users/add">Go To User Creation Form</Button>

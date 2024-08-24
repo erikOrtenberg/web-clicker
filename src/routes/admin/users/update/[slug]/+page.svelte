@@ -5,20 +5,17 @@
 </script>
 
 <div>
-  <form method="POST" class="flex flex-col items-center justify-center p-4">
-    <div class="p-4">
-      Editing user {data.user.name} with user id {data.user.id}
-    </div>
-    <div class="flex flex-row items-center justify-center p-4">
-      <div class="mb-6 p-4">
+  <form method="POST">
+    <div class="flex flex-col md:flex-row items-center justify-center">
+      <div class="mb-6 p-4 min-w-52">
         <Label for="name-input" class="block mb-2">Name</Label>
-        <Input name="name" id="name-input" type="text" placeholder={data.user.name} />
+        <Input name="name" value={data.user.name} id="name-input" type="text"/>
       </div>
-      <div class="mb-6 p-4">
+      <div class="mb-6 p-4 min-w-52">
         <Label for="password-input" class="block mb-2">Password</Label>
-        <Input name="password" id="password-input" type="password" placeholder="..." />
+        <Input name="password" id="password-input" type="password" placeholder="Empty for same PW" />
       </div>
-      <Button outline color="green" type="submit">Update User</Button>
+      <Button outline color="green" class="bg-white" type="submit">Update User</Button>
     </div>
   </form>
 </div>

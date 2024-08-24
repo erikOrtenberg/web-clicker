@@ -37,15 +37,23 @@ export async function createUser(username: string, password: string) {
 export async function updateUser(
   id: number,
   username: string,
-  password: string,
+  password: string | undefined,
 ) {
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt)
-  const user = {
-    id: id,
-    name: username,
-    password: hash,
-  };
+  let user = {}
+  if(!password){
+    user = {
+      id: id,
+      name: username,
+    };
+  } else {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt)
+    user = {
+      id: id,
+      name: username,
+      password: hash,
+    };
+  }
   const result = await db.update(users).set(user).where(eq(users.id, id));
   return result;
 }
