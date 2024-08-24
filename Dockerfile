@@ -14,7 +14,7 @@ RUN npm prune --omit=dev
 FROM deps as build
 WORKDIR /app
 COPY . .
-RUN mkdir db
+RUN mkdir -p db
 RUN npm run generate-migrations:db
 RUN npm run push:db
 RUN npm run init:db
