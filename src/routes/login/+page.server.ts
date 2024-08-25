@@ -32,7 +32,7 @@ export const actions = {
       httpOnly: true,
       path: "/",
       secure: true,
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 60 * 60 * 24 * 31, // 31 days
     });
 
