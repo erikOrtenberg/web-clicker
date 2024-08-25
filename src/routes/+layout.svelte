@@ -58,6 +58,6 @@
 <div class="flex flex-row h-20 w-full bg-primary-600 justify-center justify-around content-center items-center">
   <div class="rounded px-3 py-2 bg-gray-600">
     <p class="text-white">Made with ❤️ </p>
-    <a href="https://www.github.com" class="text-white"> Github Link</a>
+    <a href="https://www.github.com/erikOrtenberg/web-clicker" class="text-white"> Github Link</a>
   </div>
 </div>
