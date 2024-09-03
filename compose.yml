@@ -2,7 +2,7 @@ services:
   web:
     build: .
     environment:
-      - SQLITE_DB_PATH=$SQLITE_DB_PATH
+      - SQLITE_DB_PATH=./db/data.sqlite
       - JWT_ACCESS_SECRET=$JWT_ACCESS_SECRET
       - ORIGIN=http://localhost:3000
     ports:
