@@ -1,22 +1,11 @@
-# create-svelte
+# Introduction
+Web clickers is an online tally counter for you and your friends. The main idea is to track small debts you and your group may share, such as share expenses during a trip or i day to day life. The app comes with a dockerfile and compose file out of the box.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+# Developing
 
-## Creating a project
+For development the app runs locally in vites dev mode.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install dependencies with `npm install` (or `pnpm install` or `yarn`) and start a development server:
 
 ```bash
 npm run dev
@@ -25,14 +14,11 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+# Deploying
 
-To create a production version of your app:
+To run a production version of the app, simply run:
 
 ```bash
-npm run build
+docker compose up -d --build
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
