@@ -34,26 +34,6 @@ export async function getClickers() {
   return result;
 }
 
-export async function incClickerById(clickerId: number) {
-  const result = await db
-    .update(clickers)
-    .set({
-      count: sql`${clickers.count} + 1`,
-    })
-    .where(eq(clickers.id, clickerId));
-  return result;
-}
-
-export async function decClickerById(clickerId: number) {
-  const result = await db
-    .update(clickers)
-    .set({
-      count: sql`${clickers.count} - 1`,
-    })
-    .where(eq(clickers.id, clickerId));
-  return result;
-}
-
 export async function createClickerForUser(userId: number, itemId: number) {
   const clicker = { user_id: userId, item_id: itemId, count: 0 };
 

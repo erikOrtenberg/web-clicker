@@ -1,7 +1,6 @@
+import { createTransactionForClicker, getTransactionsByClicker } from "$lib/server/api/transactions";
 import {
-  decClickerById,
   getClickersByUser,
-  incClickerById,
 } from "../../lib/server/api/clickers";
 import type { PageServerLoad } from "./$types";
 import type { Actions } from "./$types";
@@ -14,8 +13,21 @@ export const load: PageServerLoad = async (event) => {
   }
 
   const clickers = await getClickersByUser(user.id);
+  const clickerTransactions : any[]= [];
+  clickers.forEach(async (clicker) => {
+    const transactions = await getTransactionsByClicker(clicker.clickers.id)
+    const count = transactions.map(element => {
+      return element.transactions.count;
+    }).reduce((a,b) => a+b, 0);
+    clickerTransactions.push({
+      clickers: clicker.clickers, 
+      items: clicker.items, 
+      users: clicker.users, 
+      transactions: transactions,
+      count: count});
+  });
   return {
-    clickers: clickers,
+    clickers: clickerTransactions,
   };
 };
 
@@ -28,7 +40,13 @@ export const actions = {
 
     const clickerId = Number(data.get("clickerId"));
 
-    incClickerById(clickerId);
+    const clickers = await getClickersByUser(event.locals.user.id);
+    const contains = clickers.map(clicker => clicker.clickers.id).includes(clickerId);
+    if (!contains) {
+      error(401, "Supplied clicker ID is not associated with user")
+    }
+
+    createTransactionForClicker(clickerId, 1);
   },
   dec: async (event) => {
     if (!event.locals.user) {
@@ -38,6 +56,12 @@ export const actions = {
 
     const clickerId = Number(data.get("clickerId"));
 
-    decClickerById(clickerId);
+    const clickers = await getClickersByUser(event.locals.user.id);
+    const contains = clickers.map(clicker => clicker.clickers.id).includes(clickerId);
+    if (!contains) {
+      error(401, "Supplied clicker ID is not associated with user")
+    }
+      
+    createTransactionForClicker(clickerId, -1);
   },
 } satisfies Actions;

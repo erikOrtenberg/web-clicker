@@ -14,7 +14,7 @@
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    data.clickers[index].clickers.count!++;
+    data.clickers[index].count!++;
   }
 
   export async function dec(clickerId: number, index: number){
@@ -27,7 +27,7 @@
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    data.clickers[index].clickers.count!--;
+    data.clickers[index].count!--;
   }
 </script>
 
@@ -42,7 +42,7 @@
         <div class="basis-2/4 shadow-inner bg-gray-200 outline outline-primary-600 flex justify-center items-center p-4">
           <div class="flex flex-col items-center justify-center">
             <p class="basis-1/4 text-lg dark:text-white">{clicker.items.name}</p>
-            <p class="basis-3/4 text-4xl dark:text-white">{clicker.clickers.count}</p>
+            <p class="basis-3/4 text-4xl dark:text-white">{clicker.count}</p>
           </div>
         </div>
         <div class="basis-1/4 rounded-r-lg bg-white outline outline-primary-600">

@@ -14,7 +14,8 @@
     "push:db": "drizzle-kit push --config=src/lib/server/db/drizzle.config.ts",
     "generate-migrations:db": "drizzle-kit generate --config=src/lib/server/db/drizzle.config.ts",
     "migrate:db": "tsx src/lib/server/db/migrate.ts",
-    "init:db": "tsx src/lib/server/db/init.ts"
+    "init:db": "drizzle-kit push --config=src/lib/server/db/drizzle.config.ts && tsx src/lib/server/db/init.ts",
+    "trans": "tsx src/lib/server/db/trans.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
