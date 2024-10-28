@@ -4,7 +4,8 @@
 	
 	export let data: PageData;
 
-  export async function updateClickNumber(clickerId: number, clickNumber: number, index: number) {
+  export async function updateClickNumber(clickerId: number, index: number, clickNumber: number) {
+    console.log(clickNumber);
     const formData = new FormData();
       formData.append("clickerId", String(clickerId))
       formData.append("clickNumber", String(clickNumber))
@@ -15,13 +16,14 @@
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    data.clickers[index].clickNumber = clickNumber;
+    data.clickers[index].clickNumber = Number(clickNumber);
 
   }
 
-  export async function inc(clickerId: number, index: number){
+  export async function inc(clickerId: number, index: number, clickNumber: number){
     const formData = new FormData();
-      formData.append("clickerId", String(clickerId))
+      formData.append("clickerId", String(clickerId));
+      formData.append("clickNumber", String(clickNumber));
     const response = await fetch("/clickers?/inc", {
         method: "POST",
         body: formData
@@ -29,7 +31,7 @@
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    data.clickers[index].count!++;
+    data.clickers[index].count! += clickNumber;
   }
 
   export async function dec(clickerId: number, index: number){
@@ -58,14 +60,13 @@
           <div class="flex flex-col items-center justify-center">
             <p class="basis-1/4 text-lg dark:text-white">{clicker.items.name}</p>
             <p class="basis-2/4 text-4xl dark:text-white">{clicker.count}</p>
-            <div class="basis-1/4 dark:text-white">
-              <p class="text-md">Amount:</p> 
-              <Input id={"clicker-" + clicker.clickers.id + "-clickNumber"} value={clicker.clickNumber} on:change={(e) => updateClickNumber(e.target.value, i)}/>
+            <div class="basis-1/4 dark:text-white flex flex-row">
+              <Input class="w-full" size="sm" id={"clicker-" + clicker.clickers.id + "-clickNumber"} type="number" value={clicker.clickNumber} on:change={(e) => updateClickNumber(clicker.clickers.id, i, e.target.value)}/>
             </div>
           </div>
         </div>
         <div class="basis-1/4 rounded-r-lg bg-white outline outline-primary-600">
-          <button class="h-full w-full" on:mouseup={() => inc(clicker.clickers.id, i)}>
+          <button class="h-full w-full" on:mouseup={() => inc(clicker.clickers.id, i, clicker.clickNumber)}>
             <p class="text-4xl">+{clicker.clickNumber}</p>
         </button>
         </div>

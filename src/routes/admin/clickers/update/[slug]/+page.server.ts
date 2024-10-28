@@ -34,11 +34,11 @@ export const actions = {
       });
     }
     const data = await request.formData();
-    const count = data.get("count");
-    if (!count) {
+    const clickNumber = data.get("click_number");
+    if (!clickNumber) {
       error(400, "you must provide a count");
     }
-    if (isNaN(parseInt(String(count)))) {
+    if (isNaN(parseInt(String(clickNumber)))) {
       error(400, "you must provide an integer");
     }
 
@@ -48,7 +48,7 @@ export const actions = {
       clickerId,
       clicker!.users!.id,
       clicker!.items!.id,
-      Number(count),
+      Number(clickNumber),
     );
 
     if (!result) {

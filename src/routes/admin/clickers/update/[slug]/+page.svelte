@@ -7,8 +7,8 @@
 <form method="POST">
   <div class="flex flex-row items-center justify-center p-4">
     <div class="mb-6 p-4 min-w-52">
-      <Label for="count-input" class="block mb-2">Count</Label>
-      <Input name="count" value={data.clicker.clickers.count} id="count-input" type="number" placeholder={data.clicker.clickers.count} />
+      <Label for="click_number-input" class="block mb-2">Default Click Value</Label>
+      <Input name="click_number" value={data.clicker.clickers.click_number} id="count-input" type="number" placeholder={data.clicker.clickers.click_number} />
     </div>
     <Button outline color="green" class="bg-white" type="submit">Update Clicker</Button>
   </div>

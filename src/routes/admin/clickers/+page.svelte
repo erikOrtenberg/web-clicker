@@ -8,7 +8,7 @@
     <TableHead>
       <TableHeadCell>For User</TableHeadCell>
       <TableHeadCell>With Item</TableHeadCell>
-      <TableHeadCell>Count</TableHeadCell>
+      <TableHeadCell>Default Click Value</TableHeadCell>
       <TableHeadCell>
         <span class="sr-only">Edit</span>
       </TableHeadCell>
@@ -18,7 +18,7 @@
         <TableBodyRow>
           <TableBodyCell>{clicker.users.name}</TableBodyCell>
           <TableBodyCell>{clicker.items.name}</TableBodyCell>
-          <TableBodyCell>{clicker.clickers.count}</TableBodyCell>
+          <TableBodyCell>{clicker.clickers.click_number}</TableBodyCell>
           <TableBodyCell>
             <a href={"/admin/clickers/update/" + clicker.clickers.id} class="font-medium text-primary-600 hover:underline dark:text-primary-500">Edit</a>
           </TableBodyCell>

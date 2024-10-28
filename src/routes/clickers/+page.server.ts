@@ -1,4 +1,5 @@
 import { createTransactionForClicker, getTransactionsByClicker } from "$lib/server/api/transactions";
+import { clickers } from "$lib/server/db/schema";
 import {
     getClickerById,
   getClickersByUser,
@@ -42,11 +43,15 @@ export const actions = {
     }
     const data = await event.request.formData();
 
+    console.log(data)
     const clickerId = Number(data.get("clickerId"));
     const clickNumber = Number(data.get("clickNumber"));
 
+    console.log(clickerId)
     const clicker = await getClickerById(clickerId);
-    if(!clicker || clicker.clickers.user_id === event.locals.user.id){
+    console.log(clicker)
+    if(!clicker || clicker.users.id !== event.locals.user.id){
+      console.log(event.locals.user.id, clicker.users.id)
       error(401, "Supplied clicker ID is not associated with user")
     }
 
@@ -62,6 +67,7 @@ export const actions = {
     const data = await event.request.formData();
 
     const clickerId = Number(data.get("clickerId"));
+    const clickNumber = Number(data.get("clickNumber"));
 
     const clickers = await getClickersByUser(event.locals.user.id);
     const contains = clickers.map(clicker => clicker.clickers.id).includes(clickerId);
@@ -69,7 +75,7 @@ export const actions = {
       error(401, "Supplied clicker ID is not associated with user")
     }
 
-    createTransactionForClicker(clickerId, 1);
+    createTransactionForClicker(clickerId, clickNumber);
   },
   dec: async (event) => {
     if (!event.locals.user) {
