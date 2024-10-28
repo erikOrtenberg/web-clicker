@@ -35,7 +35,7 @@ export async function getClickers() {
 }
 
 export async function createClickerForUser(userId: number, itemId: number) {
-  const clicker = { user_id: userId, item_id: itemId, count: 0 };
+  const clicker = { user_id: userId, item_id: itemId };
 
   const result = await db.insert(clickers).values(clicker);
   return result;
@@ -45,9 +45,9 @@ export async function updateClickerForUser(
   id: number,
   userId: number,
   itemId: number,
-  count: number,
+  clickNumber: number,
 ) {
-  const clicker = { id: id, user_id: userId, item_id: itemId, count: count };
+  const clicker = { id: id, user_id: userId, item_id: itemId, click_number: clickNumber};
 
   const result = await db
     .update(clickers)

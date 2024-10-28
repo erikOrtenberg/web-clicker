@@ -1,8 +1,23 @@
 <script lang="ts">
-    import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Checkbox, TableSearch } from 'flowbite-svelte';
+  import { Input } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	
 	export let data: PageData;
+
+  export async function updateClickNumber(clickerId: number, clickNumber: number, index: number) {
+    const formData = new FormData();
+      formData.append("clickerId", String(clickerId))
+      formData.append("clickNumber", String(clickNumber))
+    const response = await fetch("/clickers?/updateClickNumber", {
+        method: "POST",
+        body: formData
+      })
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    data.clickers[index].clickNumber = clickNumber;
+
+  }
 
   export async function inc(clickerId: number, index: number){
     const formData = new FormData();
@@ -42,13 +57,17 @@
         <div class="basis-2/4 shadow-inner bg-gray-200 outline outline-primary-600 flex justify-center items-center p-4">
           <div class="flex flex-col items-center justify-center">
             <p class="basis-1/4 text-lg dark:text-white">{clicker.items.name}</p>
-            <p class="basis-3/4 text-4xl dark:text-white">{clicker.count}</p>
+            <p class="basis-2/4 text-4xl dark:text-white">{clicker.count}</p>
+            <div class="basis-1/4 dark:text-white">
+              <p class="text-md">Amount:</p> 
+              <Input id={"clicker-" + clicker.clickers.id + "-clickNumber"} value={clicker.clickNumber} on:change={(e) => updateClickNumber(e.target.value, i)}/>
+            </div>
           </div>
         </div>
         <div class="basis-1/4 rounded-r-lg bg-white outline outline-primary-600">
           <button class="h-full w-full" on:mouseup={() => inc(clicker.clickers.id, i)}>
-            <p class="text-4xl">+</p>
-          </button>
+            <p class="text-4xl">+{clicker.clickNumber}</p>
+        </button>
         </div>
       </div>
   {/each}

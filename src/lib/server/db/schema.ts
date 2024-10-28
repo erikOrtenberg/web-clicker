@@ -27,6 +27,9 @@ const clickers = sqliteTable("clickers", {
   item_id: integer("item_id")
     .references(() => items.id)
     .notNull(),
+  click_number: integer("click_number")
+    .default(1)
+    .notNull(),
 });
 
 const items = sqliteTable("items", {

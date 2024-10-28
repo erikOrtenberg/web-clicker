@@ -1,6 +1,8 @@
 import { createTransactionForClicker, getTransactionsByClicker } from "$lib/server/api/transactions";
 import {
+    getClickerById,
   getClickersByUser,
+  updateClickerForUser,
 } from "../../lib/server/api/clickers";
 import type { PageServerLoad } from "./$types";
 import type { Actions } from "./$types";
@@ -24,7 +26,9 @@ export const load: PageServerLoad = async (event) => {
       items: clicker.items, 
       users: clicker.users, 
       transactions: transactions,
-      count: count});
+      count: count,
+      clickNumber: clicker.clickers.click_number
+    });
   });
   return {
     clickers: clickerTransactions,
@@ -32,6 +36,25 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions = {
+  updateClickNumber: async (event) => {
+    if (!event.locals.user) {
+      error(401, "You must be logged in to use this resource");
+    }
+    const data = await event.request.formData();
+
+    const clickerId = Number(data.get("clickerId"));
+    const clickNumber = Number(data.get("clickNumber"));
+
+    const clicker = await getClickerById(clickerId);
+    if(!clicker || clicker.clickers.user_id === event.locals.user.id){
+      error(401, "Supplied clicker ID is not associated with user")
+    }
+
+    updateClickerForUser(clicker.clickers.id, 
+      event.locals.user.id, 
+      clicker.items!.id, 
+      clickNumber);
+  },
   inc: async (event) => {
     if (!event.locals.user) {
       error(401, "You must be logged in to use this resource");

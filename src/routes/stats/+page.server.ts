@@ -1,3 +1,4 @@
+import { getTransactionsByClicker } from "$lib/server/api/transactions";
 import {
   getClickersByUser,
 } from "../../lib/server/api/clickers";
@@ -12,18 +13,28 @@ export const load: PageServerLoad = async (event) => {
   }
 
   const clickers = await getClickersByUser(user.id);
-  const spendings = clickers.map(clicker => {
+  const clickerAndCount = await Promise.all(clickers.map(async clicker => {
+    const transactions = await getTransactionsByClicker(clicker.clickers.id)
+    const count = (transactions.map(t => t.transactions.count)).reduce((a,b) => a+b, 0)
+    return {
+      clickers: clicker.clickers,
+      items: clicker.items,
+      users: clicker.users,
+      count: count,
+    }
+  }))
+  const spendings = clickerAndCount.map(clicker => {
     return {
       name: clicker.items!.name,
-      count: clicker.clickers.count,
-      total: Number(clicker.clickers.count) * Number(clicker.items?.price)
+      count: clicker.count,
+      total: Number(clicker.count) * Number(clicker.items?.price)
     }
   });
   let count = 0
   let total = 0 
-  clickers.forEach(clicker => {
-    total += Number(clicker.items!.price) * Number(clicker.clickers.count);
-    count += Number(clicker.clickers.count);
+  clickerAndCount.forEach(clicker => {
+    total += Number(clicker.items!.price) * Number(clicker.count);
+    count += Number(clicker.count);
   })
   spendings.unshift({name: "Total", count: count, total: total})
   return {
