@@ -43,15 +43,11 @@ export const actions = {
     }
     const data = await event.request.formData();
 
-    console.log(data)
     const clickerId = Number(data.get("clickerId"));
     const clickNumber = Number(data.get("clickNumber"));
 
-    console.log(clickerId)
     const clicker = await getClickerById(clickerId);
-    console.log(clicker)
-    if(!clicker || clicker.users.id !== event.locals.user.id){
-      console.log(event.locals.user.id, clicker.users.id)
+    if(!clicker || !clicker.users || clicker.users.id !== event.locals.user.id){
       error(401, "Supplied clicker ID is not associated with user")
     }
 
