@@ -28,9 +28,7 @@ export async function createUser(username: string, password: string) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt)
   const user = { name: username, password: hash };
-  console.log(user);
   const result = await db.insert(users).values(user);
-  console.log(result);
   return result;
 }
 

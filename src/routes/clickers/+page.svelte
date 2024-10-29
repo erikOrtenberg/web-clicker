@@ -5,7 +5,6 @@
 	export let data: PageData;
 
   export async function updateClickNumber(clickerId: number, index: number, clickNumber: number) {
-    console.log(clickNumber);
     const formData = new FormData();
       formData.append("clickerId", String(clickerId))
       formData.append("clickNumber", String(clickNumber))

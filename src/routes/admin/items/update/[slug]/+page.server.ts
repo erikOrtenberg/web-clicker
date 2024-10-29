@@ -5,7 +5,6 @@ import { getItemById, updateItem } from "$lib/server/api/items";
 
 export const load: PageServerLoad = async ({ params }) => {
   const itemId = parseInt(params.slug);
-  console.log(itemId);
   if (isNaN(itemId)) {
     error(400, {
       message: "slug is not a number",
@@ -35,7 +34,6 @@ export const actions = {
     }
 
     const data = await request.formData();
-    console.log(data);
     const name = data.get("name");
     const price = data.get("price");
     const comment = data.get("comment");

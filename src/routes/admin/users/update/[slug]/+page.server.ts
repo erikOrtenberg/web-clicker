@@ -5,7 +5,6 @@ import { getUserById, updateUser } from "$lib/server/api/users";
 
 export const load: PageServerLoad = async ({ params }) => {
   const userId = parseInt(params.slug);
-  console.log(userId);
   if (isNaN(userId)) {
     error(400, {
       message: "slug is not a number",
@@ -35,7 +34,6 @@ export const actions = {
     }
 
     const data = await request.formData();
-    console.log(data);
     const name = data.get("name");
     const password = data.get("password");
 

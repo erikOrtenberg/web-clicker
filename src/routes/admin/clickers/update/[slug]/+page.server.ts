@@ -5,7 +5,6 @@ import { getClickerById, updateClickerForUser } from "$lib/server/api/clickers";
 
 export const load: PageServerLoad = async ({ params }) => {
   const clickerId = parseInt(params.slug);
-  console.log(clickerId);
   if (isNaN(clickerId)) {
     error(400, {
       message: "slug is not a number",
